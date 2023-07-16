@@ -54,6 +54,24 @@ export default class App extends React.Component {
     })
   }
 
+  handelToggle = (clickedId) => {
+    console.log('clear');
+    //1. setState
+    //2. change todos
+    //3. find the todo that we click on
+    //4. filp the value of completed for that todo
+    //5. keep all other todo the same
+    this.setState({
+      ...this.state, 
+      todos: this.state.todos.map(todo => {
+        if (todo.id === clickedId) {
+          return {...todo, completed: !todo.completed}
+        }
+        return todo;
+      })
+    })
+  }
+
   render() {
     const { todos } = this.state;
     console.log(todos);
@@ -61,7 +79,7 @@ export default class App extends React.Component {
     return (
       <div>
         <h1>Todo App</h1>
-        <TodoList todos={todos} /> 
+        <TodoList todos={todos} handelToggle={this.handelToggle} /> 
         <Form handelClear={this.handelClear} handelAdd={this.handelAdd}/>
       </div>
     )
